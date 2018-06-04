@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="9fa5dcd6-9a82-4753-9ba5-2490ab2dfadb" ChangeDateTime="05/25/2018 16:24:50">
+    <Property Name="ElementName" Value="[dbo].[questions].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[questions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="question-id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="fda5f76a-62e9-4f1f-b0fb-384678b71adf" ChangeDateTime="05/25/2018 16:27:24">
+    <Property Name="ElementName" Value="[dbo].[multiple-choice-answers].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[multiple-choice-answers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="multiple-choice-answer-id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d9f9c27b-ef45-4647-bb43-c40825305f9c" ChangeDateTime="05/25/2018 16:27:55">
+    <Property Name="ElementName" Value="[dbo].[multiple-choice-answers].[order]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[multiple-choice-answers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="answer-no" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="62f4c954-12b6-466c-bafc-557973a04e18" ChangeDateTime="05/25/2018 16:33:12">
+    <Property Name="ElementName" Value="[dbo].[free-text-answers].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[free-text-answers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="free-text-answers-id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ca8977a1-cf28-4ede-9f94-cb581fd06176" ChangeDateTime="05/25/2018 16:34:16">
+    <Property Name="ElementName" Value="[dbo].[free-text-answers].[quesrion-id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[free-text-answers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="question-id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a494fb89-4737-4c0a-b5ae-95b6bfb65a53" ChangeDateTime="05/25/2018 16:36:56">
+    <Property Name="ElementName" Value="[dbo].[questionnaire].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[questionnaire]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="questionnaire-id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1999bc82-fa2c-4ab7-8f2f-5ae4a6e6dfed" ChangeDateTime="05/25/2018 17:02:50">
+    <Property Name="ElementName" Value="[dbo].[answers].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[answers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AnswerId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8a768411-8e17-400d-903a-ddb0a5c196bb" ChangeDateTime="05/25/2018 17:04:56">
+    <Property Name="ElementName" Value="[dbo].[questionnaire].[questionnaire-id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[questionnaire]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="QuestionnaireId" />
+  </Operation>
+</Operations>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e9b9f117660041de8058e86d49b9e0ee" Name="Diagram1">
+        <EntityTypeShape EntityType="SupportDBModel.C__RefactorLog" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SupportDBModel.Answer" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="SupportDBModel.FreeTextAnswer" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SupportDBModel.MultipleChoiceAnswer" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SupportDBModel.Questionnaire" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SupportDBModel.question" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="SupportDBModel.FK_FreeTextAnswersAnswers" ManuallyRouted="false" />
+        <AssociationConnector Association="SupportDBModel.FK_MultipleChoiceAnswersAnswers" ManuallyRouted="false" />
+        <AssociationConnector Association="SupportDBModel.FK_QuestionAnswers" ManuallyRouted="false" />
+        <AssociationConnector Association="SupportDBModel.FK_QuestionnaireAnswers" ManuallyRouted="false" />
+        <AssociationConnector Association="SupportDBModel.FK_QuestionFreeTextAnswers" ManuallyRouted="false" />
+        <AssociationConnector Association="SupportDBModel.FK_QuestionMultipleChoiceAnswers" ManuallyRouted="false" />
+        <AssociationConnector Association="SupportDBModel.FK_QuestionnaireMultipleChoiceAnswers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

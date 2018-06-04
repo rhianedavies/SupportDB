@@ -58,4 +58,14 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="questions.sql" />
+    <Build Include="multiple-choice-answers.sql" />
+    <Build Include="free-text-answers.sql" />
+    <Build Include="questionnaire.sql" />
+    <Build Include="answers.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SupportDB.refactorlog" />
+  </ItemGroup>
 </Project>

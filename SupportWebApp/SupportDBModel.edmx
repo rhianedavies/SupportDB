@@ -1,0 +1,449 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SupportDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Answers">
+          <Key>
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="AnswerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionnaireId" Type="uniqueidentifier" />
+          <Property Name="QuestionId" Type="uniqueidentifier" />
+          <Property Name="MultipleChoiceAnswersId" Type="uniqueidentifier" />
+          <Property Name="FreeTextAnswersId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="FreeTextAnswers">
+          <Key>
+            <PropertyRef Name="FreeTextAnswersId" />
+          </Key>
+          <Property Name="FreeTextAnswersId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionId" Type="uniqueidentifier" />
+          <Property Name="Answer" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="MultipleChoiceAnswers">
+          <Key>
+            <PropertyRef Name="MultipleChoiceAnswersId" />
+          </Key>
+          <Property Name="MultipleChoiceAnswersId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionId" Type="uniqueidentifier" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="250" />
+          <Property Name="AnswerNo" Type="int" />
+          <Property Name="QuestionnaireId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Questionnaire">
+          <Key>
+            <PropertyRef Name="QuestionnaireId" />
+          </Key>
+          <Property Name="QuestionnaireId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionnaireDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="questions">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question" Type="nvarchar" MaxLength="250" />
+          <Property Name="QuestionNo" Type="int" />
+        </EntityType>
+        <Association Name="FK_FreeTextAnswersAnswers">
+          <End Role="FreeTextAnswers" Type="Self.FreeTextAnswers" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FreeTextAnswers">
+              <PropertyRef Name="FreeTextAnswersId" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="FreeTextAnswersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MultipleChoiceAnswersAnswers">
+          <End Role="MultipleChoiceAnswers" Type="Self.MultipleChoiceAnswers" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MultipleChoiceAnswers">
+              <PropertyRef Name="MultipleChoiceAnswersId" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="MultipleChoiceAnswersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswers">
+          <End Role="questions" Type="Self.questions" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionFreeTextAnswers">
+          <End Role="questions" Type="Self.questions" Multiplicity="0..1" />
+          <End Role="FreeTextAnswers" Type="Self.FreeTextAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="FreeTextAnswers">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionMultipleChoiceAnswers">
+          <End Role="questions" Type="Self.questions" Multiplicity="0..1" />
+          <End Role="MultipleChoiceAnswers" Type="Self.MultipleChoiceAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="MultipleChoiceAnswers">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionnaireAnswers">
+          <End Role="Questionnaire" Type="Self.Questionnaire" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionnaire">
+              <PropertyRef Name="QuestionnaireId" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="QuestionnaireId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionnaireMultipleChoiceAnswers">
+          <End Role="Questionnaire" Type="Self.Questionnaire" Multiplicity="0..1" />
+          <End Role="MultipleChoiceAnswers" Type="Self.MultipleChoiceAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionnaire">
+              <PropertyRef Name="QuestionnaireId" />
+            </Principal>
+            <Dependent Role="MultipleChoiceAnswers">
+              <PropertyRef Name="QuestionnaireId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SupportDBModelStoreContainer">
+          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FreeTextAnswers" EntityType="Self.FreeTextAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MultipleChoiceAnswers" EntityType="Self.MultipleChoiceAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questionnaire" EntityType="Self.Questionnaire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="questions" EntityType="Self.questions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FreeTextAnswersAnswers" Association="Self.FK_FreeTextAnswersAnswers">
+            <End Role="FreeTextAnswers" EntitySet="FreeTextAnswers" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MultipleChoiceAnswersAnswers" Association="Self.FK_MultipleChoiceAnswersAnswers">
+            <End Role="MultipleChoiceAnswers" EntitySet="MultipleChoiceAnswers" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswers" Association="Self.FK_QuestionAnswers">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionFreeTextAnswers" Association="Self.FK_QuestionFreeTextAnswers">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="FreeTextAnswers" EntitySet="FreeTextAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionMultipleChoiceAnswers" Association="Self.FK_QuestionMultipleChoiceAnswers">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="MultipleChoiceAnswers" EntitySet="MultipleChoiceAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionnaireAnswers" Association="Self.FK_QuestionnaireAnswers">
+            <End Role="Questionnaire" EntitySet="Questionnaire" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionnaireMultipleChoiceAnswers" Association="Self.FK_QuestionnaireMultipleChoiceAnswers">
+            <End Role="Questionnaire" EntitySet="Questionnaire" />
+            <End Role="MultipleChoiceAnswers" EntitySet="MultipleChoiceAnswers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SupportDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="AnswerId" Type="Guid" Nullable="false" />
+          <Property Name="QuestionnaireId" Type="Guid" />
+          <Property Name="QuestionId" Type="Guid" />
+          <Property Name="MultipleChoiceAnswersId" Type="Guid" />
+          <Property Name="FreeTextAnswersId" Type="Guid" />
+          <NavigationProperty Name="FreeTextAnswer" Relationship="Self.FK_FreeTextAnswersAnswers" FromRole="Answers" ToRole="FreeTextAnswers" />
+          <NavigationProperty Name="MultipleChoiceAnswer" Relationship="Self.FK_MultipleChoiceAnswersAnswers" FromRole="Answers" ToRole="MultipleChoiceAnswers" />
+          <NavigationProperty Name="question" Relationship="Self.FK_QuestionAnswers" FromRole="Answers" ToRole="questions" />
+          <NavigationProperty Name="Questionnaire" Relationship="Self.FK_QuestionnaireAnswers" FromRole="Answers" ToRole="Questionnaire" />
+        </EntityType>
+        <EntityType Name="FreeTextAnswer">
+          <Key>
+            <PropertyRef Name="FreeTextAnswersId" />
+          </Key>
+          <Property Name="FreeTextAnswersId" Type="Guid" Nullable="false" />
+          <Property Name="QuestionId" Type="Guid" />
+          <Property Name="Answer" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK_FreeTextAnswersAnswers" FromRole="FreeTextAnswers" ToRole="Answers" />
+          <NavigationProperty Name="question" Relationship="Self.FK_QuestionFreeTextAnswers" FromRole="FreeTextAnswers" ToRole="questions" />
+        </EntityType>
+        <EntityType Name="MultipleChoiceAnswer">
+          <Key>
+            <PropertyRef Name="MultipleChoiceAnswersId" />
+          </Key>
+          <Property Name="MultipleChoiceAnswersId" Type="Guid" Nullable="false" />
+          <Property Name="QuestionId" Type="Guid" />
+          <Property Name="Answer" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerNo" Type="Int32" />
+          <Property Name="QuestionnaireId" Type="Guid" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK_MultipleChoiceAnswersAnswers" FromRole="MultipleChoiceAnswers" ToRole="Answers" />
+          <NavigationProperty Name="question" Relationship="Self.FK_QuestionMultipleChoiceAnswers" FromRole="MultipleChoiceAnswers" ToRole="questions" />
+          <NavigationProperty Name="Questionnaire" Relationship="Self.FK_QuestionnaireMultipleChoiceAnswers" FromRole="MultipleChoiceAnswers" ToRole="Questionnaire" />
+        </EntityType>
+        <EntityType Name="Questionnaire">
+          <Key>
+            <PropertyRef Name="QuestionnaireId" />
+          </Key>
+          <Property Name="QuestionnaireId" Type="Guid" Nullable="false" />
+          <Property Name="QuestionnaireDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK_QuestionnaireAnswers" FromRole="Questionnaire" ToRole="Answers" />
+          <NavigationProperty Name="MultipleChoiceAnswers" Relationship="Self.FK_QuestionnaireMultipleChoiceAnswers" FromRole="Questionnaire" ToRole="MultipleChoiceAnswers" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Guid" Nullable="false" />
+          <Property Name="Question1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionNo" Type="Int32" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK_QuestionAnswers" FromRole="questions" ToRole="Answers" />
+          <NavigationProperty Name="FreeTextAnswers" Relationship="Self.FK_QuestionFreeTextAnswers" FromRole="questions" ToRole="FreeTextAnswers" />
+          <NavigationProperty Name="MultipleChoiceAnswers" Relationship="Self.FK_QuestionMultipleChoiceAnswers" FromRole="questions" ToRole="MultipleChoiceAnswers" />
+        </EntityType>
+        <Association Name="FK_FreeTextAnswersAnswers">
+          <End Role="FreeTextAnswers" Type="Self.FreeTextAnswer" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FreeTextAnswers">
+              <PropertyRef Name="FreeTextAnswersId" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="FreeTextAnswersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MultipleChoiceAnswersAnswers">
+          <End Role="MultipleChoiceAnswers" Type="Self.MultipleChoiceAnswer" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MultipleChoiceAnswers">
+              <PropertyRef Name="MultipleChoiceAnswersId" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="MultipleChoiceAnswersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswers">
+          <End Role="questions" Type="Self.question" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionnaireAnswers">
+          <End Role="Questionnaire" Type="Self.Questionnaire" Multiplicity="0..1" />
+          <End Role="Answers" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionnaire">
+              <PropertyRef Name="QuestionnaireId" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="QuestionnaireId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionFreeTextAnswers">
+          <End Role="questions" Type="Self.question" Multiplicity="0..1" />
+          <End Role="FreeTextAnswers" Type="Self.FreeTextAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="FreeTextAnswers">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionMultipleChoiceAnswers">
+          <End Role="questions" Type="Self.question" Multiplicity="0..1" />
+          <End Role="MultipleChoiceAnswers" Type="Self.MultipleChoiceAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="MultipleChoiceAnswers">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionnaireMultipleChoiceAnswers">
+          <End Role="Questionnaire" Type="Self.Questionnaire" Multiplicity="0..1" />
+          <End Role="MultipleChoiceAnswers" Type="Self.MultipleChoiceAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionnaire">
+              <PropertyRef Name="QuestionnaireId" />
+            </Principal>
+            <Dependent Role="MultipleChoiceAnswers">
+              <PropertyRef Name="QuestionnaireId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SupportDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__RefactorLog" EntityType="Self.C__RefactorLog" />
+          <EntitySet Name="Answers" EntityType="Self.Answer" />
+          <EntitySet Name="FreeTextAnswers" EntityType="Self.FreeTextAnswer" />
+          <EntitySet Name="MultipleChoiceAnswers" EntityType="Self.MultipleChoiceAnswer" />
+          <EntitySet Name="Questionnaires" EntityType="Self.Questionnaire" />
+          <EntitySet Name="questions" EntityType="Self.question" />
+          <AssociationSet Name="FK_FreeTextAnswersAnswers" Association="Self.FK_FreeTextAnswersAnswers">
+            <End Role="FreeTextAnswers" EntitySet="FreeTextAnswers" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MultipleChoiceAnswersAnswers" Association="Self.FK_MultipleChoiceAnswersAnswers">
+            <End Role="MultipleChoiceAnswers" EntitySet="MultipleChoiceAnswers" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswers" Association="Self.FK_QuestionAnswers">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionnaireAnswers" Association="Self.FK_QuestionnaireAnswers">
+            <End Role="Questionnaire" EntitySet="Questionnaires" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionFreeTextAnswers" Association="Self.FK_QuestionFreeTextAnswers">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="FreeTextAnswers" EntitySet="FreeTextAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionMultipleChoiceAnswers" Association="Self.FK_QuestionMultipleChoiceAnswers">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="MultipleChoiceAnswers" EntitySet="MultipleChoiceAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionnaireMultipleChoiceAnswers" Association="Self.FK_QuestionnaireMultipleChoiceAnswers">
+            <End Role="Questionnaire" EntitySet="Questionnaires" />
+            <End Role="MultipleChoiceAnswers" EntitySet="MultipleChoiceAnswers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SupportDBModelStoreContainer" CdmEntityContainer="SupportDBEntities">
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="SupportDBModel.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="SupportDBModel.Answer">
+              <MappingFragment StoreEntitySet="Answers">
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+                <ScalarProperty Name="QuestionnaireId" ColumnName="QuestionnaireId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="MultipleChoiceAnswersId" ColumnName="MultipleChoiceAnswersId" />
+                <ScalarProperty Name="FreeTextAnswersId" ColumnName="FreeTextAnswersId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FreeTextAnswers">
+            <EntityTypeMapping TypeName="SupportDBModel.FreeTextAnswer">
+              <MappingFragment StoreEntitySet="FreeTextAnswers">
+                <ScalarProperty Name="FreeTextAnswersId" ColumnName="FreeTextAnswersId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MultipleChoiceAnswers">
+            <EntityTypeMapping TypeName="SupportDBModel.MultipleChoiceAnswer">
+              <MappingFragment StoreEntitySet="MultipleChoiceAnswers">
+                <ScalarProperty Name="MultipleChoiceAnswersId" ColumnName="MultipleChoiceAnswersId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="AnswerNo" ColumnName="AnswerNo" />
+                <ScalarProperty Name="QuestionnaireId" ColumnName="QuestionnaireId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questionnaires">
+            <EntityTypeMapping TypeName="SupportDBModel.Questionnaire">
+              <MappingFragment StoreEntitySet="Questionnaire">
+                <ScalarProperty Name="QuestionnaireId" ColumnName="QuestionnaireId" />
+                <ScalarProperty Name="QuestionnaireDate" ColumnName="QuestionnaireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questions">
+            <EntityTypeMapping TypeName="SupportDBModel.question">
+              <MappingFragment StoreEntitySet="questions">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Question1" ColumnName="Question" />
+                <ScalarProperty Name="QuestionNo" ColumnName="QuestionNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
