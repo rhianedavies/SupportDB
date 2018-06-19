@@ -65,25 +65,38 @@ namespace SupportForm
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 var answer = Request.Form[dr["questionid"].ToString()];
-                var freeTextAnswersId = Guid.NewGuid();
                 if (Guid.TryParse(answer, out Guid aGuid) == false && answer != "--SELECT--")
                 {
+                    var freeTextAnswersId = Guid.NewGuid();
                     SqlCommand cmdFreeTextAnswer = new SqlCommand("insert into freetextanswers (freetextanswersid, " +
                                                                   "questionid, answer) values (@freetextanswersid, " +
                                                                   "@questionid, @answer)", conn);
                     cmdFreeTextAnswer.Parameters.Add(new SqlParameter("@freetextanswersid", freeTextAnswersId));
                     cmdFreeTextAnswer.Parameters.Add(new SqlParameter("@questionid", dr["questionid"].ToString()));
                     cmdFreeTextAnswer.Parameters.Add(new SqlParameter("@answer", answer));
+                    SqlCommand cmdAns = new SqlCommand("insert into answers (questionnaireid, questionid, freetextanswersid) " +
+                                                       "values (@questionnaireid, @questionid, @freetextanswersid)", conn);
+                    cmdAns.Parameters.Add(new SqlParameter("@questionnaireid", questionnaireId));
+                    cmdAns.Parameters.Add(new SqlParameter("@questionid", dr["questionid"].ToString()));
+                    cmdAns.Parameters.Add(new SqlParameter("@freetextanswersid", @freeTextAnswersId));
                     conn.Open();
                     cmdFreeTextAnswer.ExecuteNonQuery();
+                    cmdAns.ExecuteNonQuery();
                     conn.Close();
                 }
-                SqlCommand cmdAns = new SqlCommand("insert into answers (questionnaireid, questionid, multiplechoiceanswersid, " +
-                                                   "freetextanswersid) values (@questionnaireid, @questionid, " +
-                                                   "@multiplechoiceanswersid, @freetextanswersid)", conn);
-                cmdAns.Parameters.Add(new SqlParameter("@questionnaireid", questionnaireId));
-                cmdAns.Parameters.Add(new SqlParameter())
+                else
+                {
+                    SqlCommand cmdAns = new SqlCommand("insert into answers (questionnaireid, questionid, multiplechoiceanswersid) " +
+                                                       "values (@questionnaireid, @questionid, @multiplechoiceanswersid)", conn);
+                    cmdAns.Parameters.Add(new SqlParameter("@questionnaireid", questionnaireId));
+                    cmdAns.Parameters.Add(new SqlParameter("@questionid", dr["questionid"].ToString()));
+                    cmdAns.Parameters.Add(new SqlParameter("@multiplechoiceanswersid", answer));
+                    conn.Open();
+                    cmdAns.ExecuteNonQuery();
+                    conn.Close();
+                }
             }
+            Response.Redirect("Results.aspx?id=" + questionnaireId);
         }
     }
 }

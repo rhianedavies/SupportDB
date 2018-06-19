@@ -10,24 +10,24 @@
 namespace SupportForm {
     
     
-    public partial class SiteMaster {
+    public partial class Results {
         
         /// <summary>
-        /// MainContent control.
+        /// results control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl results;
         
         /// <summary>
-        /// FooterContent control.
+        /// textQuestionnaireId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder FooterContent;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl textQuestionnaireId;
     }
 }
